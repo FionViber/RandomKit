@@ -186,6 +186,56 @@ body{font-size:14px;line-height:1.65}h1,h2,h3,h4{color:var(--navy);font-weight:7
   :focus-visible { outline: 3px solid Highlight; }
   button[aria-pressed="true"] { border-color: Highlight; text-decoration: underline; }
 }
+
+select[data-asq-native][hidden] {display:none!important}
+.asq-picker {position:relative;display:inline-flex;vertical-align:middle;max-width:100%;font:inherit;color:inherit}
+.asq-picker .asq-picker-trigger,.asq-picker-menu button {
+  appearance:none;border-radius:0;box-sizing:border-box;display:flex;align-items:center;
+  gap:.5rem;min-height:44px;padding:.45rem .65rem;font:inherit;font-size:.9375rem;line-height:1.4;
+  background:var(--surface,#fff);color:var(--ink,#172b3a);cursor:pointer;
+}
+.asq-picker .asq-picker-trigger {border:1px solid var(--muted,#546674);max-width:100%}
+.asq-picker .asq-picker-trigger:is(:focus,[aria-expanded=true]) {outline:2px solid var(--link,#0066b9);outline-offset:0;box-shadow:none}
+.asq-picker svg {width:18px;height:18px;flex:none;pointer-events:none}
+.asq-picker .asq-picker-trigger svg:last-child {width:14px;margin-inline-start:auto}
+.asq-picker .asq-picker-menu {
+  position:absolute;z-index:50;inset-block-start:calc(100% + 3px);inset-inline-end:0;
+  display:grid;width:max-content;min-width:100%;max-width:calc(100vw - 24px);
+  max-height:min(16rem,55svh);overflow:auto;border:1px solid #768897;border-radius:0;
+  padding:2px;margin:0;background:var(--surface,#fff);
+}
+.asq-picker .asq-picker-menu[data-side=above] {inset-block-start:auto;inset-block-end:calc(100% + 3px)}
+.asq-picker .asq-picker-menu[hidden] {display:none}
+.asq-picker-menu button {justify-content:space-between;width:100%;border:0;text-align:start}
+.asq-picker-menu [aria-checked=false] svg {visibility:hidden}
+.asq-picker-menu button:is(:hover,:focus,[aria-checked=true]) {background:var(--pale,#e6f0f8)}
+.asq-picker-menu button:focus {outline:2px solid var(--link,#0066b9);outline-offset:-2px}
+@media(forced-colors:active){.asq-picker [aria-checked=true]{text-decoration:underline}.asq-picker :focus{outline-color:Highlight}}
+
+select[data-asq-native][hidden] {display:none!important}
+.asq-picker {position:relative;display:inline-flex;vertical-align:middle;max-width:100%;font:inherit;color:inherit}
+.asq-picker .asq-picker-trigger,.asq-picker-menu button {
+  appearance:none;border-radius:0;box-sizing:border-box;display:flex;align-items:center;
+  gap:.5rem;min-height:44px;padding:.45rem .65rem;font:inherit;font-size:.9375rem;line-height:1.4;
+  background:var(--surface,#fff);color:var(--ink,#172b3a);cursor:pointer;
+}
+.asq-picker .asq-picker-trigger {border:1px solid var(--muted,#546674);max-width:100%}
+.asq-picker .asq-picker-trigger:is(:focus,[aria-expanded=true]) {outline:2px solid var(--link,#0066b9);outline-offset:0;box-shadow:none}
+.asq-picker svg {width:18px;height:18px;flex:none;pointer-events:none}
+.asq-picker .asq-picker-trigger svg:last-child {width:14px;margin-inline-start:auto}
+.asq-picker .asq-picker-menu {
+  position:absolute;z-index:50;inset-block-start:calc(100% + 3px);inset-inline-end:0;
+  display:grid;width:max-content;min-width:100%;max-width:calc(100vw - 24px);
+  max-height:min(16rem,55svh);overflow:auto;border:1px solid #768897;border-radius:0;
+  padding:2px;margin:0;background:var(--surface,#fff);
+}
+.asq-picker .asq-picker-menu[data-side=above] {inset-block-start:auto;inset-block-end:calc(100% + 3px)}
+.asq-picker .asq-picker-menu[hidden] {display:none}
+.asq-picker-menu button {justify-content:space-between;width:100%;border:0;text-align:start}
+.asq-picker-menu [aria-checked=false] svg {visibility:hidden}
+.asq-picker-menu button:is(:hover,:focus,[aria-checked=true]) {background:var(--pale,#e6f0f8)}
+.asq-picker-menu button:focus {outline:2px solid var(--link,#0066b9);outline-offset:-2px}
+@media(forced-colors:active){.asq-picker [aria-checked=true]{text-decoration:underline}.asq-picker :focus{outline-color:Highlight}}
 </style>
 <style id="strict-square-fix">
 /* Strict square presentation, including generated results and SVG rectangles. */
@@ -2230,7 +2280,7 @@ globalThis.RandomLocales={"en":{"appName":"Random Studio","tagline":"Random sele
     const motion = settings.motion || (changedMode ? 'mode' : 'layout');
     document.documentElement.lang = state.language === 'en' ? 'en-GB' : state.language;
     document.title = t('appName');
-    const html = `<header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><div><div class="brand-name">${tx('appName')}</div></div></div><div class="header-controls">${btn('help', 'help', 'help', 'subtle small help-button')}${btn('theme', 'theme', darkTheme() ? 'sun' : 'moon', 'theme-button')}<svg class="fv-icon" aria-hidden="true"><use href="#fv-world"></use></svg><select class="language-control" data-bind="language" aria-label="${tx('language')}">${options([['en', 'English'], ['zh-CN', '简体中文'], ['zh-TW', '繁體中文']], state.language)}</select>${btn('settings', 'settings', 'settings', 'settings-button')}</div></header>
+    const html = `<header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><div><div class="brand-name">${tx('appName')}</div></div></div><div class="header-controls">${btn('help', 'help', 'help', 'subtle small help-button')}${btn('theme', 'theme', darkTheme() ? 'sun' : 'moon', 'theme-button')}<select class="language-control" data-bind="language" aria-label="${tx('language')}">${options([['en', 'English'], ['zh-CN', '简体中文'], ['zh-TW', '繁體中文']], state.language)}</select>${btn('settings', 'settings', 'settings', 'settings-button')}</div></header>
     <main class="app-shell"><div class="presentation-bar"><span>${esc(state.eventTitle || t('appName'))}</span><div class="row">${btn('fullscreen', 'fullscreen', 'expand', 'small')}${btn('presentation', 'exitPresentation', 'close', 'small')}</div></div><section class="page-intro" data-ui-region="intro"><div><h1>${tx(state.mode + 'Title')}</h1><p>${tx(state.mode + 'Description')}</p></div><div class="intro-actions">${btn('import', 'import', 'upload')}${btn('export', 'export', 'download')}</div></section><nav class="mode-nav" aria-label="${tx('allTools')}">${MODES.map(mode => `<button type="button" class="mode-tab" data-action="mode" data-mode="${mode}" aria-current="${state.mode === mode}" ${ui.busy ? 'disabled' : ''}>${icon(mode)}<span>${tx(mode)}</span></button>`).join('')}</nav><div class="workspace-grid"><aside class="card setup-card" id="controls" data-ui-region="controls">${controlsHTML()}</aside><div class="stage-column"><section class="card stage-card ${ui.phase === 'motion' ? 'in-motion' : ''}" id="stage" data-ui-region="stage" data-mode="${state.mode}" aria-label="${tx('result')}">${stageHTML()}</section><section class="card roster-card" id="roster" data-ui-region="roster" ${state.participants.length ? '' : 'hidden'}>${rosterHTML()}</section></div></div><section class="card history-card" id="historyPanel" data-ui-region="history" ${state.history.length ? '' : 'hidden'}>${historyPanelHTML()}</section><footer class="footer"><span class="muted">${tx('appName')}</span><div class="row"><span class="version-label">${tx('version')}</span><span>·</span><button type="button" data-action="settings">${tx(state.remember ? 'autoSaveOn' : 'autoSaveOff')}</button><span>·</span><button type="button" data-action="help">${tx('help')}</button></div></footer></main>`;
     UI.update(root, html, { animate: settings.animate !== false, motion, beforeUpdate() { applyTheme(); document.body.classList.toggle('presentation', ui.presentation); } });
     root.dataset.mode = state.mode; root.dataset.kind = state.options.chance.kind;
@@ -3027,5 +3077,273 @@ unicode: "eb55"
 -->
 
   <path d="M18 6l-12 12" />
-  <path d="M6 6l12 12" /></symbol></svg></body>
+  <path d="M6 6l12 12" /></symbol></svg><script>
+/* Square locale switch. Icons from Tabler Icons, MIT (see LICENSE). */
+(() => {
+  const icons = {"world": "<svg class=\"nav-icon\" aria-hidden=\"true\" focusable=\"false\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\" />\n  <path d=\"M3.6 9h16.8\" />\n  <path d=\"M3.6 15h16.8\" />\n  <path d=\"M11.5 3a17 17 0 0 0 0 18\" />\n  <path d=\"M12.5 3a17 17 0 0 1 0 18\" /></svg>", "chevron": "<svg class=\"nav-icon\" aria-hidden=\"true\" focusable=\"false\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6l6 -6\" /></svg>", "check": "<svg class=\"nav-icon\" aria-hidden=\"true\" focusable=\"false\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12l5 5l10 -10\" /></svg>"};
+  let serial = 0;
+
+  function attach(select, readName) {
+    const group = document.createElement("span");
+    group.className = "asq-picker";
+    const trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.className = "asq-picker-trigger";
+    trigger.setAttribute("aria-haspopup", "menu");
+    const valueLabel = document.createElement("span");
+    trigger.insertAdjacentHTML("beforeend", icons.world);
+    trigger.append(valueLabel);
+    trigger.insertAdjacentHTML("beforeend", icons.chevron);
+    const menu = document.createElement("span");
+    menu.className = "asq-picker-menu";
+    menu.id = "asq-options-" + ++serial;
+    menu.setAttribute("role", "menu");
+    menu.hidden = true;
+    trigger.setAttribute("aria-controls", menu.id);
+    trigger.setAttribute("aria-expanded", "false");
+    const options = [...select.options].map(option => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.tabIndex = -1;
+      item.setAttribute("role", "menuitemradio");
+      item.lang = option.lang;
+      const caption = document.createElement("span");
+      item.append(caption);
+      item.insertAdjacentHTML("beforeend", icons.check);
+      item.addEventListener("click", () => {
+        close(true);
+        if (select.value === option.value) return;
+        select.value = option.value;
+        select.dispatchEvent(new Event("input", { bubbles: true }));
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        sync();
+      });
+      menu.append(item);
+      return { option, item, caption };
+    });
+
+    function sync() {
+      const selected = select.selectedOptions[0];
+      const name = readName() || select.getAttribute("aria-label") || "Language";
+      valueLabel.textContent = selected?.textContent || "";
+      valueLabel.lang = selected?.lang || "";
+      trigger.disabled = select.disabled;
+      trigger.setAttribute("aria-label", name + " · " + valueLabel.textContent);
+      menu.setAttribute("aria-label", name);
+      for (const { option, item, caption } of options) {
+        caption.textContent = option.textContent;
+        item.setAttribute("aria-checked", String(option.selected));
+        item.disabled = option.disabled;
+      }
+    }
+    function open(target) {
+      sync();
+      menu.hidden = false;
+      menu.dataset.side = "below";
+      const rect = trigger.getBoundingClientRect();
+      if (window.innerHeight - rect.bottom < menu.offsetHeight + 6 && rect.top > window.innerHeight - rect.bottom) {
+        menu.dataset.side = "above";
+      }
+      trigger.setAttribute("aria-expanded", "true");
+      const active = options.filter(row => !row.item.disabled);
+      const choice = target === "first" ? active[0] : target === "last" ? active.at(-1) :
+        active.find(row => row.option.selected) || active[0];
+      choice?.item.focus({ preventScroll: true });
+    }
+    let prefix = "", typedAt = 0;
+    function close(restore = false) {
+      menu.hidden = true;
+      prefix = "";
+      trigger.setAttribute("aria-expanded", "false");
+      if (restore) trigger.focus({preventScroll:true});
+    }
+    trigger.addEventListener("click", event => {
+      event.preventDefault();
+      if (menu.hidden) open(); else close(true);
+    });
+    trigger.addEventListener("keydown", event => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        open(event.key === "ArrowDown" ? "first" : "last");
+      }
+    });
+    menu.addEventListener("keydown", event => {
+      const buttons = options.map(row=>row.item).filter(item=>!item.disabled);
+      const index = buttons.indexOf(document.activeElement);
+      if (event.key === "Escape") { event.preventDefault(); close(true); return; }
+      if (event.key === "Tab") { close(true); return; }
+      const steps = { ArrowDown:1, ArrowUp:-1 };
+      if (event.key in steps || ["Home","End"].includes(event.key)) {
+        event.preventDefault();
+        const next = event.key === "Home" ? 0 : event.key === "End" ? buttons.length-1 :
+          (index + steps[event.key] + buttons.length) % buttons.length;
+        buttons[next]?.focus();
+      } else if (event.key.length === 1 && event.key !== " " && !event.altKey && !event.ctrlKey && !event.metaKey) {
+        const now=performance.now();
+        prefix=(now-typedAt < 600 ? prefix : "") + event.key.toLocaleLowerCase();
+        typedAt=now;
+        buttons.find(item=>item.textContent.trim().toLocaleLowerCase().startsWith(prefix))?.focus();
+      }
+    });
+    document.addEventListener("pointerdown", e=>{ if (!menu.hidden && !group.contains(e.target)) close(); });
+    group.addEventListener("focusout", e=>{ if (!menu.hidden && !group.contains(e.relatedTarget)) close(); });
+    select.addEventListener("change", sync);
+    group.append(trigger, menu);
+    select.after(group);
+    select.hidden = true;
+    select.dataset.asqNative = "";
+    sync();
+    return sync;
+  }
+  window.ASQLocale = Object.freeze({ attach });
+})();
+
+{const select=document.getElementById("editorFormat");if(select){const sync=ASQLocale.attach(select,()=>select.getAttribute("aria-label")||"Language");select.addEventListener("change",sync);}}
+</script>
+<script>
+/* Square locale switch. Icons from Tabler Icons, MIT (see LICENSE). */
+(() => {
+  const icons = {"world": "<svg class=\"nav-icon\" aria-hidden=\"true\" focusable=\"false\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0\" />\n  <path d=\"M3.6 9h16.8\" />\n  <path d=\"M3.6 15h16.8\" />\n  <path d=\"M11.5 3a17 17 0 0 0 0 18\" />\n  <path d=\"M12.5 3a17 17 0 0 1 0 18\" /></svg>", "chevron": "<svg class=\"nav-icon\" aria-hidden=\"true\" focusable=\"false\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6l6 -6\" /></svg>", "check": "<svg class=\"nav-icon\" aria-hidden=\"true\" focusable=\"false\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12l5 5l10 -10\" /></svg>"};
+  let serial = 0;
+  let active = null;
+  document.addEventListener("pointerdown", e => {
+    if (active && !active.group.contains(e.target)) active.close();
+  });
+
+  function attach(select, readName) {
+    const group = document.createElement("span");
+    group.className = "asq-picker";
+    const trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.className = "asq-picker-trigger";
+    trigger.setAttribute("aria-haspopup", "menu");
+    const valueLabel = document.createElement("span");
+    trigger.insertAdjacentHTML("beforeend", icons.world);
+    trigger.append(valueLabel);
+    trigger.insertAdjacentHTML("beforeend", icons.chevron);
+    const menu = document.createElement("span");
+    menu.className = "asq-picker-menu";
+    menu.id = "asq-options-" + ++serial;
+    menu.setAttribute("role", "menu");
+    menu.hidden = true;
+    trigger.setAttribute("aria-controls", menu.id);
+    trigger.setAttribute("aria-expanded", "false");
+    const options = [...select.options].map(option => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.tabIndex = -1;
+      item.setAttribute("role", "menuitemradio");
+      item.lang = option.lang;
+      const caption = document.createElement("span");
+      item.append(caption);
+      item.insertAdjacentHTML("beforeend", icons.check);
+      item.addEventListener("click", () => {
+        close(true);
+        if (select.value === option.value) return;
+        select.value = option.value;
+        select.dispatchEvent(new Event("input", { bubbles: true }));
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        sync();
+      });
+      menu.append(item);
+      return { option, item, caption };
+    });
+
+    function sync() {
+      const selected = select.selectedOptions[0];
+      const name = readName() || select.getAttribute("aria-label") || "Language";
+      valueLabel.textContent = selected?.textContent || "";
+      valueLabel.lang = selected?.lang || "";
+      trigger.disabled = select.disabled;
+      trigger.setAttribute("aria-label", name + " · " + valueLabel.textContent);
+      menu.setAttribute("aria-label", name);
+      for (const { option, item, caption } of options) {
+        caption.textContent = option.textContent;
+        item.setAttribute("aria-checked", String(option.selected));
+        item.disabled = option.disabled;
+      }
+    }
+    function open(target) {
+      sync();
+      active?.close();
+      active = { group, close };
+      menu.hidden = false;
+      menu.dataset.side = "below";
+      const rect = trigger.getBoundingClientRect();
+      if (window.innerHeight - rect.bottom < menu.offsetHeight + 6 && rect.top > window.innerHeight - rect.bottom) {
+        menu.dataset.side = "above";
+      }
+      trigger.setAttribute("aria-expanded", "true");
+      const active = options.filter(row => !row.item.disabled);
+      const choice = target === "first" ? active[0] : target === "last" ? active.at(-1) :
+        active.find(row => row.option.selected) || active[0];
+      choice?.item.focus({ preventScroll: true });
+    }
+    let prefix = "", typedAt = 0;
+    function close(restore = false) {
+      if (active?.group === group) active = null;
+      menu.hidden = true;
+      prefix = "";
+      trigger.setAttribute("aria-expanded", "false");
+      if (restore) trigger.focus({preventScroll:true});
+    }
+    trigger.addEventListener("click", event => {
+      event.preventDefault();
+      if (menu.hidden) open(); else close(true);
+    });
+    trigger.addEventListener("keydown", event => {
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        open(event.key === "ArrowDown" ? "first" : "last");
+      }
+    });
+    menu.addEventListener("keydown", event => {
+      const buttons = options.map(row=>row.item).filter(item=>!item.disabled);
+      const index = buttons.indexOf(document.activeElement);
+      if (event.key === "Escape") { event.preventDefault(); close(true); return; }
+      if (event.key === "Tab") { close(true); return; }
+      const steps = { ArrowDown:1, ArrowUp:-1 };
+      if (event.key in steps || ["Home","End"].includes(event.key)) {
+        event.preventDefault();
+        const next = event.key === "Home" ? 0 : event.key === "End" ? buttons.length-1 :
+          (index + steps[event.key] + buttons.length) % buttons.length;
+        buttons[next]?.focus();
+      } else if (event.key.length === 1 && event.key !== " " && !event.altKey && !event.ctrlKey && !event.metaKey) {
+        const now=performance.now();
+        prefix=(now-typedAt < 600 ? prefix : "") + event.key.toLocaleLowerCase();
+        typedAt=now;
+        buttons.find(item=>item.textContent.trim().toLocaleLowerCase().startsWith(prefix))?.focus();
+      }
+    });
+    group.addEventListener("focusout", e=>{ if (!menu.hidden && !group.contains(e.relatedTarget)) close(); });
+    select.addEventListener("change", sync);
+    group.append(trigger, menu);
+    select.after(group);
+    select.hidden = true;
+    select.dataset.asqNative = "";
+    sync();
+    return sync;
+  }
+  window.ASQLocale = Object.freeze({ attach });
+})();
+
+(() => {
+ const root = document.querySelector('#app');
+ if (!root) return;
+ const selector = 'select[data-bind="language"]';
+ function enhance() {
+   const select = root.querySelector(selector);
+   if (!select || select.nextElementSibling?.classList.contains('asq-picker')) return;
+   ASQLocale.attach(select, () => select.getAttribute('aria-label'));
+ }
+ enhance();
+ new MutationObserver(records => {
+   if (records.some(record => [...record.addedNodes].some(n => n.nodeType === 1 &&
+       (n.matches(selector) || n.querySelector(selector)))) ||
+       !root.querySelector('.asq-picker')) enhance();
+ }).observe(root, {childList:true, subtree:true});
+})();
+
+</script>
+</body>
 </html>
